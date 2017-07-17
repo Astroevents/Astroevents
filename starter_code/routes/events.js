@@ -18,8 +18,6 @@ router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
   });
 });
 
-//NUEVO
-
 router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
@@ -48,8 +46,19 @@ router.post('/new', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    // redirect to the list of products if it saves
     return res.redirect('/events');
   });
 });
+//NUEVO
+
+
+router.get('/events/:id', (req, res, next) => {
+  const eventId = req.params.id;
+
+  Event.findById(eventId, (err, event) => {
+    if (err) { return next(err); }
+    res.render('events/show', { event: event });
+  });
+});
+
 module.exports = router;
