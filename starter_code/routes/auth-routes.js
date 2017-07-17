@@ -81,7 +81,7 @@ authRoutes.post("/login", passport.authenticate("local", {
 
 authRoutes.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/login")
+  res.redirect("/login");
 });
 
 module.exports = authRoutes;
