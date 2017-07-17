@@ -1,20 +1,30 @@
+<div class="container">
 
 <% if (user) { %>
   <div>
-    <h2>Wellcome <%= user.username %> </h2>
-      <a href="/logout">logout</a>
+    <h2>Welcome <%= user.username %> </h2>
   </div>
 <% } %>
 
+<div class="container">
+<div class="">
 
 <ul>
   <% events.forEach((event) => { %>
-    <li>
-      <%= event.name %> - <%= event.description %>
-    </li>
-    <img src="<%= event.imageUrl %>" alt="">
-      </img>
+    <div class="container">
+      <img src="<%= event.imageUrl %>" alt=""></img>
+    </div>
+      <li>
+        <%= event.name %> - <%= event.description %>
+      </li>
   <%  }) %>
 </ul>
+</div>
+</div>
 
+
+
+<a href="/logout">logout</a>
+<br>
 <a href="/new">new event</a>
+</div>

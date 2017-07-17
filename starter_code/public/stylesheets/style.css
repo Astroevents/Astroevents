@@ -4,15 +4,15 @@ html {
 }
 
 body {
-  padding-top: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #FAFAFE;
   color: #2E2545;
   padding-top: 80px;
 }
 
-span {
+h3 {
   color: #FAFAFE;
+  text-align: center;
 }
 
 .carousel-inner>.item {
@@ -41,14 +41,10 @@ span {
 }
 
 input {
-  margin: 20px 0;
+  margin-bottom: 10px;
 }
 
 h1, h2 {
-  text-align: center;
-}
-
-p {
   text-align: center;
 }
 
@@ -57,6 +53,7 @@ p {
   background-size: cover;
   background-position: center center;
   min-height: 600px;
+  width: 100%;
 }
 
 .jumbotron h1 {
@@ -119,4 +116,32 @@ p {
 
 .text-event {
   color: #FAFAFE;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  margin-top: 80px;
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+.jumbotron p {
+  margin-bottom: 15px;
+  font-weight: 200;
+  font-size: 15px;
+  margin-top: 20px;
+}
+.btn{
+  background-color: #2E2545;
+  color: #FAFAFE;
+}
+.btn:hover {
+    color: lightgrey;
+    text-decoration: none;
+}
+#description{
+  margin-bottom: 20px;
 }

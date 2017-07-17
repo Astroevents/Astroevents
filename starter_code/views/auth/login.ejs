@@ -8,18 +8,18 @@
 
 <form action="/login" method="POST" id="flogin">
   <div>
-    <label for="username">Username:</label>
+    <label for="username">Username</label>
     <input type="text" name="username" class="form-control" placeholder=" &#128273; Your name">
   </div>
   <div>
-    <label for="password">Password:</label>
+    <label for="password">Password</label>
     <input type="password" name="password" class="form-control" placeholder=" &#128273; Your password">
   </div>
   <% if (typeof message != "undefined") { %>
     <div class="error-message"><%= message %></div>
   <% } %>
   <div>
-    <input  class="btn btn-success" type="submit" value="Log In">
+    <input  class="btn" type="submit" value="Log In">
   </div>
   <p class="account-message">
     Create an Account!
