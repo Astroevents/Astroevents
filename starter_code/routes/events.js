@@ -49,8 +49,6 @@ router.post('/new', (req, res, next) => {
     return res.redirect('/events');
   });
 });
-//NUEVO
-
 
 router.get('/events/:id', (req, res, next) => {
   const eventId = req.params.id;
@@ -59,6 +57,36 @@ router.get('/events/:id', (req, res, next) => {
     if (err) { return next(err); }
     res.render('events/show', { event: event });
   });
+});
+
+//NUEVO
+
+router.get('/events/:id/edit', (req, res, next) => {
+  const eventId = req.params.id;
+
+  Event.findById(eventId, (err, event) => {
+    if (err) { return next(err); }
+    res.render('events/edit', { event: event });
+  });
+});
+
+router.post('/events/:id', (req, res, next) => {
+  const eventId = req.params.id;
+
+  const updates = {
+     place : req.body.place,
+     city : req.body.city,
+     date : req.body.date,
+     imageUrl : req.body.imageUrl,
+     name : req.body.name,
+     description : req.body.description,
+     category : req.body.category
+};
+
+Event.findByIdAndUpdate(eventId, updates, (err, event) => {
+  if (err){ return next(err); }
+  return res.redirect('/events');
+});
 });
 
 module.exports = router;
