@@ -15,11 +15,15 @@
       <%= event.name %> - <%= event.description %>
     </li>
     <img src="<%= event.imageUrl %>" alt="">
-      </img>
       <a href="/events/<%= event._id %>">View Details</a>
-      <a href="/events/<%= event._id %>/edit/">Edit Product</a>
+      <a href="/events/<%= event._id %>/edit/">Edit event</a>
+      <li>
+        <form action="/events/<%= event._id%>/delete" method="POST">
+          <button type="submit">Delete Event</button>
+        </form>
+      </li>
 
-  <%  }) %>
+  <%  }); %>
 </ul>
 </div>
 </div>
