@@ -11,12 +11,14 @@
 
 <ul>
   <% events.forEach((event) => { %>
-    <div class="container">
-      <img src="<%= event.imageUrl %>" alt=""></img>
-    </div>
-      <li>
-        <%= event.name %> - <%= event.description %>
-      </li>
+    <li>
+      <%= event.name %> - <%= event.description %>
+    </li>
+    <img src="<%= event.imageUrl %>" alt="">
+      </img>
+      <a href="/events/<%= event._id %>">View Details</a>
+      <a href="/events/<%= event._id %>/edit/">Edit Product</a>
+
   <%  }) %>
 </ul>
 </div>
