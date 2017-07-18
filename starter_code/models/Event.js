@@ -27,6 +27,7 @@ const EventSchema = new Schema({
     // enum: ["cielo profundo", "sitema solar", "luna", "unknown"],
     default: "unknown"
   }
+
 }, {
   timestamps: {
     createdAt: "created_at",

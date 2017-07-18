@@ -1,10 +1,8 @@
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const CommentSchema = new Schema({
-  comment: String,
-  userOwner: {
+const AssistantSchema = new Schema({
+  userID: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -19,6 +17,6 @@ const CommentSchema = new Schema({
     }
   });
 
-  const Comment = mongoose.model('Comment', CommentSchema);
+  const Assistant = mongoose.model('Assistant', AssistantSchema);
 
-  module.exports = Comment;
+  module.exports = Assistant;

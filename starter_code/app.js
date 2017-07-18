@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
+const MongoStore = require("connect-mongo")(session);
 
 
 
@@ -16,6 +17,7 @@ const passport = require("passport");
 const index = require('./routes/index');
 const authRoutes = require("./routes/auth-routes");
 const eventRoutes = require("./routes/events");
+const commentRoutes = require('./routes/comments');
 
 
 
@@ -44,7 +46,11 @@ app.use(layouts);
 app.use(session({
   secret: "our-passport-local-strategy-app",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60
+  })
 }));
 
 require("./passport/local");
@@ -57,6 +63,7 @@ app.use(passport.session());
 app.use('/', authRoutes);
 app.use('/', index);
 app.use('/', eventRoutes);
+app.use('/', commentRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

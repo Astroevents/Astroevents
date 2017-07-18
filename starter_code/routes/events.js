@@ -1,5 +1,6 @@
 const express = require('express');
 const Event = require('../models/Event');
+const Comment = require('../models/Comment');
 const ensureLogin = require("connect-ensure-login");
 const mongoose = require('mongoose');
 
@@ -55,7 +56,11 @@ router.get('/events/:id', (req, res, next) => {
 
   Event.findById(eventId, (err, event) => {
     if (err) { return next(err); }
-    res.render('events/show', { event: event });
+    Comment.find({eventID: eventId}, (err, comments) => {
+      if (err) { return next(err); }
+      res.render('events/show', { event: event, comments: comments });
+    })
+
   });
 });
 
