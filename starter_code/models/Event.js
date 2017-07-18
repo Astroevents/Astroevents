@@ -24,7 +24,7 @@ const EventSchema = new Schema({
   description: String,
   category: {
     type: String,
-    // enum: ["cielo profundo", "sitema solar", "luna", "unknown"],
+   enum: ["cielo profundo", "sitema solar", "luna", "unknown"],
     default: "unknown"
   }
 }, {

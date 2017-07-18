@@ -1,11 +1,13 @@
+<div class="container">
 
 <% if (user) { %>
   <div>
-    <h2>Wellcome <%= user.username %> </h2>
-      <a href="/logout">logout</a>
+    <h2>Welcome <%= user.username %> </h2>
   </div>
 <% } %>
 
+<div class="container">
+<div class="">
 
 <ul>
   <% events.forEach((event) => { %>
@@ -19,5 +21,12 @@
 
   <%  }) %>
 </ul>
+</div>
+</div>
 
+
+
+<a href="/logout">logout</a>
+<br>
 <a href="/new">new event</a>
+</div>

@@ -3,21 +3,24 @@
 <h1>Signup</h1>
 <div class="jumbotron boxlogin container">
 <form action="/signup" method="POST" id="form-container">
-  <label for="name">Name:</label>
-  <input id="name" type="text" name="name" placeholder=" Name">
-  <label for="lastName">Lastname:</label>
-  <input id="lastName" type="text" name="lastName" placeholder=" Lastname">
-  <label for="city">City:</label>
-  <input id="city" type="text" name="city" placeholder=" City">
-  <label for="username">Username:</label>
-  <input id="username" type="text" name="username" placeholder=" &#128273; Your  Username">
-  <label for="password">Password:</label>
-  <input id="password" type="password" name="password" placeholder=" &#128273; Your Password">
-  <label for="email">Email:</label>
-  <input id="email" type="text" name="email" placeholder=" Email">
-  <label for="imgUrl">ImgURL:</label>
-  <input id="imgUrl" type="text" name="imgUrl" placeholder=" imgUrl">
-  <label for="telescope">Has Telescope: </label>
+  <label for="name">Name</label>
+  <input id="name" type="text" name="name" class="form-control" placeholder=" Name">
+  <label for="lastName">Lastname</label>
+  <input id="lastName" type="text" name="lastName" class="form-control" placeholder=" Lastname">
+  <label for="city">City</label>
+  <input id="city" type="text" name="city"class="form-control"  placeholder=" City">
+  <label for="username">Username</label>
+  <input id="username" type="text" name="username" class="form-control" placeholder=" &#128273; Your  Username">
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password"class="form-control"  placeholder=" &#128273; Your Password">
+  <label for="email">Email</label>
+  <input id="email" type="text" name="email"class="form-control"  placeholder=" Email">
+  <label for="imgUrl">Image URL</label>
+  <div class="form-group">
+
+    <input type="file" name="imgUrl"  class="form-control" placeholder=" Image URL" >
+  </div>
+  <label for="telescope">Has Telescope </label>
   <input name="telescope" type="checkbox" id="create-telescope">
 
   <% if (typeof message !== "undefined") { %>
@@ -25,7 +28,7 @@
   <% } %>
   <br><br>
 
-  <button class="btn btn-success">Create account</button>
+  <button class="btn">Create account</button>
 
   <p class="account-message">
     Do you already have an account?

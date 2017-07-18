@@ -1,7 +1,12 @@
 const express = require('express');
 const Event = require('../models/Event');
 const ensureLogin = require("connect-ensure-login");
+const multer  = require('multer');
 const mongoose = require('mongoose');
+//const passport = require("passport");
+const upload = multer({ dest: '../public/uploads/' });
+const pictures = [];
+
 
 const router = express.Router();
 
@@ -21,6 +26,14 @@ router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
 router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
+router.post('/uploads',upload.single('imageUrl'),function(req, res, next) {
+  console.log(req.body);
+  console.log(req.file);
+  pictures.push({
+    "imgURL": req.file.filename
+  });
+  res.redirect('/');
+});
 
 router.post('/new', (req, res, next) => {
   const name = req.body.name;
@@ -37,7 +50,7 @@ router.post('/new', (req, res, next) => {
      place : place,
      city : city,
      date : date,
-     imageUrl : "http://conceptodefinicion.de/wp-content/uploads/2015/01/Astronomia.jpg",
+     imageUrl: imageUrl,
      description : description,
      category : category,
   });
