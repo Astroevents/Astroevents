@@ -59,7 +59,7 @@ router.get('/events/:id', (req, res, next) => {
     Comment.find({eventID: eventId}, (err, comments) => {
       if (err) { return next(err); }
       res.render('events/show', { event: event, comments: comments });
-    })
+    });
 
   });
 });
@@ -97,10 +97,14 @@ Event.findByIdAndUpdate(eventId, updates, (err, event) => {
 router.post('/events/:id/delete', (req, res, next) => {
   const id = req.params.id;
 
-  Event.findByIdAndRemove(id, (err, event) => {
+  Event.findByIdAndRemove(id, (err, events) => {
     if (err){ return next(err); }
-    return res.redirect('/events');
+    Comment.remove({eventID:id}, (err, comment) => {
+      if (err){ return next(err); }
+      return res.redirect('/events');
+    });
   });
+
 
 });
 
