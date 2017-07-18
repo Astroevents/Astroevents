@@ -145,3 +145,31 @@ img {
 #description{
   margin-bottom: 20px;
 }
+.site-footer{
+  background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+  color:  #9d9d9d;
+  margin-top: 30px;
+  padding-top: 30px;
+}
+.bottom-footer{
+  border-top: 1px solid  #FAFAFE;
+  margin-top: 10px;
+  padding-top: 10px;
+
+}
+.footer-nav{
+  text-align: right;
+  list-style: none;
+}
+.footer-nav li{
+  display: inline;
+  
+
+}
+
+.footer-nav, a {
+  color:#9d9d9d;
+}
+.footer-nav, a:hover{
+  color:#FAFAFE;
+}
