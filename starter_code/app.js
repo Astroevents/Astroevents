@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
+const MongoStore = require("connect-mongo")(session);
 
 
 
@@ -44,7 +45,11 @@ app.use(layouts);
 app.use(session({
   secret: "our-passport-local-strategy-app",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60
+  })
 }));
 
 require("./passport/local");

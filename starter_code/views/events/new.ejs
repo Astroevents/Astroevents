@@ -1,9 +1,11 @@
+
+
 <div class="jumbotron container section">
+
+
   <div class=" event jumbotron boxlogin container">
 
-
-
-      <form action="/new" method="POST">
+      <form action="/new" method="POST" enctype="multipart/form-data">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" class="form-control" placeholder=" Your name" >
 
@@ -25,15 +27,16 @@
           <option value="luna">Moon</option>
         </select>
         <br>
+        <section>
+
         <label for="imageUrl">Image URL</label>
-        <div class="form-group">
 
           <input type="file" name="imageUrl"  class="form-control" placeholder=" Image URL" >
-        </div>
         <label for="description">Description</label>
         <textarea type="text" name="description" class="form-control" id="description"></textarea>
 
         <button class="btn " type="submit">Create Event</button>
+      </section>
 
       </form>
 

@@ -10,7 +10,7 @@ const EventSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  coordenades: {
+  location: {
     lat: Number,
     long: Number
   },
@@ -21,6 +21,7 @@ const EventSchema = new Schema({
   imageUrl: {
     type: String,
     default: "http://conceptodefinicion.de/wp-content/uploads/2015/01/Astronomia.jpg" },
+  imageName: String,
   description: String,
   category: {
     type: String,
@@ -34,6 +35,7 @@ const EventSchema = new Schema({
   }
 });
 
+EventSchema.index({location: '2dsphere'});
 const Event = mongoose.model('Event', EventSchema);
 
 module.exports = Event;

@@ -4,7 +4,7 @@ const ensureLogin = require("connect-ensure-login");
 const multer  = require('multer');
 const mongoose = require('mongoose');
 //const passport = require("passport");
-const upload = multer({ dest: '../public/uploads/' });
+const upload = multer({ dest: './public/uploads/' });
 const pictures = [];
 
 
@@ -26,24 +26,25 @@ router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
 router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
-router.post('/uploads',upload.single('imageUrl'),function(req, res, next) {
-  console.log(req.body);
-  console.log(req.file);
-  pictures.push({
-    "imgURL": req.file.filename
-  });
-  res.redirect('/');
-});
 
-router.post('/new', (req, res, next) => {
+// router.post('/uploads', upload.single('imageUrl'), function(req, res, next) {
+//   console.log(req.body);
+//   console.log(req.file);
+//   pictures.push({
+//     "imgURL": req.file.filename
+//   });
+//   res.redirect('/');
+// });
+
+router.post('/new', upload.single('imageUrl'), (req, res, next) => {
   const name = req.body.name;
   const place = req.body.place;
   const city = req.body.city;
   const date = req.body.date;
-  const imageUrl = req.body.imageUrl;
+  const imageUrl = "uploads/"+req.file.filename;
   const description = req.body.description;
   const category = req.body.category;
-
+  const imageName = req.file.originalname;
 
   const newEvent = Event({
      name : name,
@@ -51,6 +52,7 @@ router.post('/new', (req, res, next) => {
      city : city,
      date : date,
      imageUrl: imageUrl,
+     imageName: imageName,
      description : description,
      category : category,
   });
@@ -111,5 +113,7 @@ router.post('/events/:id/delete', (req, res, next) => {
   });
 
 });
+
+
 
 module.exports = router;
