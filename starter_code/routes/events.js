@@ -18,8 +18,6 @@ router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
   });
 });
 
-//NUEVO
-
 router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
@@ -48,8 +46,57 @@ router.post('/new', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    // redirect to the list of products if it saves
     return res.redirect('/events');
   });
 });
+
+router.get('/events/:id', (req, res, next) => {
+  const eventId = req.params.id;
+
+  Event.findById(eventId, (err, event) => {
+    if (err) { return next(err); }
+    res.render('events/show', { event: event });
+  });
+});
+
+router.get('/events/:id/edit', (req, res, next) => {
+  const eventId = req.params.id;
+
+  Event.findById(eventId, (err, event) => {
+    if (err) { return next(err); }
+    res.render('events/edit', { event: event });
+  });
+});
+
+router.post('/events/:id', (req, res, next) => {
+  const eventId = req.params.id;
+
+  const updates = {
+     place : req.body.place,
+     city : req.body.city,
+     date : req.body.date,
+     imageUrl : req.body.imageUrl,
+     name : req.body.name,
+     description : req.body.description,
+     category : req.body.category
+};
+
+Event.findByIdAndUpdate(eventId, updates, (err, event) => {
+  if (err){ return next(err); }
+  return res.redirect('/events');
+});
+});
+
+//NUEVO
+
+router.post('/events/:id/delete', (req, res, next) => {
+  const id = req.params.id;
+
+  Event.findByIdAndRemove(id, (err, event) => {
+    if (err){ return next(err); }
+    return res.redirect('/events');
+  });
+
+});
+
 module.exports = router;
