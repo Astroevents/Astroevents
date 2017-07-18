@@ -1,3 +1,5 @@
+
+
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -33.8688, lng: 151.2195},
@@ -54,6 +56,12 @@ function initAutocomplete() {
         position: place.geometry.location
       }));
 
+      document.getElementById('lat').value = place.geometry.location.lat();
+      document.getElementById('long').value = place.geometry.location.lng();
+      document.getElementById('city').value = place.vicinity;
+      document.getElementById('place').value = place.name;
+
+      console.log(place.geometry);
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);

@@ -1,7 +1,8 @@
 
 
 <div class="jumbotron container section">
-
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box"><br>
+    <div id="map"> </div>
 
   <div class=" event jumbotron boxlogin container">
 
@@ -17,6 +18,12 @@
 
         <label for="date">Date</label>
         <input type="date" name="date" id="date" class="form-control" >
+
+        <label for="lat"></label>
+        <input type="text" id="lat" name="lat" placeholder="Latitude" >
+
+        <label for="long"></label>
+        <input type="text" id="long" name="long" placeholder="Longitude">
 
 
       <label for="category">Category</label>
@@ -43,3 +50,6 @@
     </div>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ3L_bVBMdynZN4HfpoLWRn_f8u4cL0y0&libraries=places&callback=initAutocomplete"></script>

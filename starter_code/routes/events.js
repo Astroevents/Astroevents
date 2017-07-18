@@ -45,6 +45,8 @@ router.post('/new', upload.single('imageUrl'), (req, res, next) => {
   const description = req.body.description;
   const category = req.body.category;
   const imageName = req.file.originalname;
+  const lat = req.body.lat;
+  const long = req.body.long;
 
   const newEvent = Event({
      name : name,
@@ -55,8 +57,10 @@ router.post('/new', upload.single('imageUrl'), (req, res, next) => {
      imageName: imageName,
      description : description,
      category : category,
+     lat: lat,
+     long: long
   });
-
+console.log(lat);
   newEvent.save((err) => {
     if (err) {
       return next(err);
@@ -93,9 +97,11 @@ router.post('/events/:id', (req, res, next) => {
      imageUrl : req.body.imageUrl,
      name : req.body.name,
      description : req.body.description,
-     category : req.body.category
+     category : req.body.category,
+     lat : req.body.lat,
+     long : req.body.long
 };
-
+console.log(place.geometry.location.lng());
 Event.findByIdAndUpdate(eventId, updates, (err, event) => {
   if (err){ return next(err); }
   return res.redirect('/events');
