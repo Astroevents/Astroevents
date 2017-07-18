@@ -59,8 +59,6 @@ router.get('/events/:id', (req, res, next) => {
   });
 });
 
-//NUEVO
-
 router.get('/events/:id/edit', (req, res, next) => {
   const eventId = req.params.id;
 
@@ -87,6 +85,18 @@ Event.findByIdAndUpdate(eventId, updates, (err, event) => {
   if (err){ return next(err); }
   return res.redirect('/events');
 });
+});
+
+//NUEVO
+
+router.post('/events/:id/delete', (req, res, next) => {
+  const id = req.params.id;
+
+  Event.findByIdAndRemove(id, (err, event) => {
+    if (err){ return next(err); }
+    return res.redirect('/events');
+  });
+
 });
 
 module.exports = router;
