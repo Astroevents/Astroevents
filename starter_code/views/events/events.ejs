@@ -1,36 +1,56 @@
 <div class="container">
+  <div class="container events-ejs">
+    <% if (user) { %>
+      <div class="c-header">
+        <h2>Welcome  <%= user.username %> </h2>
+        <div class="header-btn">
+          <a href="/new" class="btn">New Event</a>
+        </div>
+      </div>
+    <% } %>
+<div class="row">
+  <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+    <ul class="event-list">
 
-<% if (user) { %>
-  <div>
-    <h2>Welcome <%= user.username %> </h2>
-  </div>
-<% } %>
-
-<div class="container">
-<div class="">
-
-<ul>
-  <% events.forEach((event) => { %>
-    <li>
-      <%= event.name %> - <%= event.description %>
-    </li>
-    <img src="<%= event.imageUrl %>" alt="">
-      <a href="/events/<%= event._id %>">View Details</a>
-      <a href="/events/<%= event._id %>/edit/">Edit event</a>
+      <% events.forEach((event) => { %>
       <li>
-        <form action="/events/<%= event._id%>/delete"&&"/comments/<%= event._id%>/delete" method="POST">
-          <button type="submit">Delete Event</button>
-        </form>
+        <time datetime="2014-07-20 2000">
+          <span class="day">20</span>
+          <span class="month">Jan</span>
+          <span class="year">2014</span>
+          <span class="time">8:00 PM</span>
+        </time>
+        <img alt="" src="<%= event.imageUrl %>" />
+        <div class="info">
+          <h2 class="title"><%= event.name %></h2>
+          <p class="desc"><%= event.description %></p>
+          <ul>
+            <li style="width:33%;">1 <span class="glyphicon glyphicon-ok"></span></li>
+            <li style="width:34%;">3 <span class="fa fa-question"></span></li>
+            <li style="width:33%;">103 <span class="fa fa-envelope"></span></li>
+          </ul>
+        </div>
+        <div class="social">
+          <ul>
+            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+          </ul>
+        </div>
       </li>
-
-  <%  }); %>
-</ul>
+      <div class="">
+        <form action="/events/<%= event._id%>/delete"&&"/comments/<%= event._id%>/delete" method="POST">
+          <div class="botton-link">
+            <a href="/events/<%= event._id %>" class="btn">View Details</a>
+            <a href="/events/<%= event._id %>/edit/" class="btn">Edit Event</a>
+            <a> <button class="btn" type="submit">Delete Event</button></a>
+          </div>
+        </form>
+      </div>
+        <%  }); %>
+    </ul>
+  </div>
 </div>
 </div>
 
-
-
-<a href="/logout">logout</a>
-<br>
-<a href="/new">new event</a>
 </div>

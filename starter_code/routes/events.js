@@ -22,6 +22,7 @@ router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
 router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
+
 router.post('/new', upload.single('imageUrl'), (req, res, next) => {
   const name = req.body.name;
   const place = req.body.place;
@@ -33,6 +34,7 @@ router.post('/new', upload.single('imageUrl'), (req, res, next) => {
   const imageName = req.file.originalname;
   const lat = req.body.lat;
   const long = req.body.long;
+
   const newEvent = Event({
      name : name,
      place : place,
@@ -42,10 +44,11 @@ router.post('/new', upload.single('imageUrl'), (req, res, next) => {
      imageName: imageName,
      description : description,
      category : category,
-     lat: lat,
-     long: long
+     location: {
+       lat: lat,
+     long: long }
   });
-console.log(lat);
+console.log(newEvent);
   newEvent.save((err) => {
     if (err) {
       return next(err);
@@ -89,6 +92,7 @@ router.get('/events/:id', (req, res, next) => {
       })
       );
     });
+
   });
 });
 router.get('/events/:id/edit', (req, res, next) => {
@@ -120,6 +124,7 @@ Event.findByIdAndUpdate(eventId, updates, (err, event) => {
 //NUEVO
 router.post('/events/:id/delete', (req, res, next) => {
   const id = req.params.id;
+
   Event.findByIdAndRemove(id, (err, events) => {
     if (err){ return next(err); }
     Comment.remove({eventID:id}, (err, comment) => {
@@ -148,6 +153,9 @@ router.post('/events/:id/assist', (req, res, next) => {
   });
 
 
+
 });
+
+
 
 module.exports = router;

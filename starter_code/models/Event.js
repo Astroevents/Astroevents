@@ -32,6 +32,7 @@ const EventSchema = new Schema({
     updatedAt: "updated_at"
   }
 });
+
 EventSchema.index({location: '2dsphere'});
 const Event = mongoose.model('Event', EventSchema);
 module.exports = Event;

@@ -19,8 +19,6 @@ const authRoutes = require("./routes/auth-routes");
 const eventRoutes = require("./routes/events");
 const commentRoutes = require('./routes/comments');
 
-
-
 mongoose.connect('mongodb://localhost/Astroevent');
 
 const app = express();
@@ -69,8 +67,6 @@ app.use('/', authRoutes);
 app.use('/', index);
 app.use('/', eventRoutes);
 app.use('/', commentRoutes);
-
-
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
