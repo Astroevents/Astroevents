@@ -49,10 +49,11 @@ router.post('/new', upload.single('imageUrl'), (req, res, next) => {
      imageName: imageName,
      description : description,
      category : category,
-     lat: lat,
-     long: long
+     location: {
+       lat: lat,
+     long: long }
   });
-console.log(lat);
+console.log(newEvent);
   newEvent.save((err) => {
     if (err) {
       return next(err);

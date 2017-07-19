@@ -1,24 +1,32 @@
+<div class="jumbotron container section">
+  <div class=" event jumbotron boxlogin container">
 <form action="/events/<%= event._id %>" method="POST">
   <label for="name">Name</label>
   <input type="text" id="name" name="name" value="<%= event.name %>">
-<br></br>
-  <label for="place">place</label>
-  <input type="text" name="place" id="place" value="<%= event.place %>">
-<br></br>
-  <label for="city">city</label>
-  <input type="text" name="city" id="city" value="<%= event.city %>">
-<br></br>
-  <label for="date">date</label>
-  <input type="date" name="date" id="date" value="<%= event.date %>">
-<br></br>
+  <label for="place">Place</label>
+  <input class="form-control" type="text" name="place" id="place" value="<%= event.place %>">
+  <label for="city">City</label>
+  <input class="form-control" type="text" name="city" id="city" value="<%= event.city %>">
+  <label for="date">Date</label>
+  <input class="form-control" type="date" name="date" id="date" value="<%= event.date %>">
   <label for="imageUrl">Image URL</label>
-  <input type="url" name="imageUrl" id="imageUrl" value="<%= event.imageURL %>">
-<br></br>
+  <input class="form-control" type="url" name="imageUrl" id="imageUrl" value="<%= event.imageURL %>">
   <label for="description">Description</label>
-  <textarea type="text" name="description" id="description" value="<%= event.description %>"></textarea>
-<br></br>
-  <label for="category">category</label>
-  <input type="text" name="category" id="category" value="<%= event.description %>">
-  <br></br>
-  <button type="submit">Update Event</button>
+  <textarea class="form-control" type="text" name="description" id="description" value="<%= event.description %>"></textarea>
+
+ <label for="category">category</label>
+  <input class="form-control" type="text" name="category" id="category" value="<%= event.category %>">
+
+  <label for="category">Category</label>
+  <select id="category" class="form-control"  name="category" value="<%= event.category %>">
+    <option value="unknown">Select Category</option>
+   <option value="cielo profundo">Thep Sky</option>
+    <option value="sitema solar">Solar Sistem</option>
+    <option value="luna">Moon</option>
+  </select>
+
+
+  <button class="btn" type="submit">Update Event</button>
 </form>
+</div>
+</div>
