@@ -1,5 +1,6 @@
 const express = require('express');
 const Event = require('../models/Event');
+const Assistant = require('../models/Assistant');
 const Comment = require('../models/Comment');
 const ensureLogin = require("connect-ensure-login");
 const multer  = require('multer');
@@ -53,12 +54,40 @@ console.log(lat);
   });
 });
 router.get('/events/:id', (req, res, next) => {
+
   const eventId = req.params.id;
   Event.findById(eventId, (err, event) => {
     if (err) { return next(err); }
     Comment.find({eventID: eventId}, (err, comments) => {
       if (err) { return next(err); }
-      res.render('events/show', { event: event, comments: comments });
+      let promisesComments = [];
+      comments.forEach((e) => {
+        promisesComments.push(new Promise((resolve, reject)=> {
+          e.populate('userOwner', (err, user) => {
+          if (err) { return err;}
+            resolve(user);
+        });
+      })
+      );
+      });
+      Promise.all(promisesComments).then((commentsPopulated) =>
+      Assistant.find({eventID: eventId}, (err,assistants) => {
+        if (err) { return err; }
+        let promisesAssistants = [];
+        assistants.forEach((e) => {
+          promisesAssistants.push(new Promise((resolve, reject)=> {
+            e.populate('userID', (err, user) => {
+            if (err) { return err;}
+              resolve(user);
+          });
+          })
+        );
+      });
+      Promise.all(promisesComments).then((assistantsPopulated) =>
+        res.render('events/show', { event: event, comments: commentsPopulated, assistants: assistantsPopulated })
+        );
+      })
+      );
     });
   });
 });
@@ -99,4 +128,26 @@ router.post('/events/:id/delete', (req, res, next) => {
     });
   });
 });
+
+router.post('/events/:id/assist', (req, res, next) => {
+  const eventId = req.body.event;
+  const userId = req.body.user;
+
+  const newAssistant = new Assistant({
+    eventID: eventId,
+    userID: userId
+  });
+
+  newAssistant.save((err,assistant) => {
+      if(err) {return err;}
+      Assistant.find({eventID: eventId}, (err,assistants) => {
+        if (err) { return err; }
+        res.status(200).json(assistants);
+      });
+
+  });
+
+
+});
+
 module.exports = router;

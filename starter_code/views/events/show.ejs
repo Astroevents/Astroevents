@@ -1,10 +1,59 @@
-<h1><%= event.name %></h1>
-<img src="<%= event.imageUrl %>">
-<p><%= event.description %></p>
-<p><%= comments %></p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-8">
+      <div class="image-wrapper">
+        <img src="/<%= event.imageUrl%>" alt="">
+      </div>
+      <div class="assistans-wrapper">
+        <p>Al evento asistirán <strong style="font-size:25px"><%=assistants.length%></strong> personas!</p>
+        <hr>
+          <% assistants.forEach((assistant) => { %>
+            <img class="assistant-img" src="<%=assistant.userOwner.imgUrl%>"></img>
+          <% }) %>
+      </div>
+    </div>
+    <div class="col-xs-4 comments-wrapper">
+      <form action="/comments/<%= event._id %>" method="POST">
+        <textarea type="text" name="comment" class="form-control form-control input-sm chat-input" id="comment" placeholder="Write your message here..."></textarea>
+        </br>
+        <button class="btn " type="submit">Create Comment</button>
+        <button class="btn " type="submit" onclick="addAssitans()">Asistir</button>
+        </br>
+        </form>
+        <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
+        <small class="pull-right text-muted">
+           <span class="glyphicon glyphicon-time"></span>7 mins ago</small>
+        </br>
+        <hr>
+        <% comments.forEach((event) => { %>
+          <div class="comment-item row">
+            <div class="col-xs-3 image-profile-wrapper">
+              <img src="<%=event.userOwner.imgUrl%>" alt="">
+            </div>
+            <div class="col-xs-9">
+              <span class="user-name-comment"><%=event.userOwner.username%></span>
+              <span class="created-at-comment"><%=event.created_at%></span>
+            </div>
+            <div class="col-xs-3">
+            </div>
+            <div class="col-xs-9 comment-wrapper">
+              <p class="comment-text"><%=event.comment%></span>
+            </div>
+          </div>
+          <hr>
+          <%  }); %>
 
-<form action="/comments/<%= event._id %>" method="POST">
-  <label for="comment">Comment</label>
-  <textarea type="text" name="comment" class="form-control" id="comment"></textarea>
-  <button class="btn " type="submit">Create Comment</button>
-</form>
+    </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  var currentUser = <%-JSON.stringify({
+    user : user,
+    event: event
+  })
+  %>
+</script>
