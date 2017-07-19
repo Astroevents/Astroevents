@@ -148,7 +148,6 @@ img {
 .site-footer{
   background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
   color:  #9d9d9d;
-  margin-top: 30px;
   padding-top: 30px;
 }
 .bottom-footer{
@@ -172,8 +171,8 @@ img {
   color:#FAFAFE;
 }
 #map {
-  height: 700px;
-  width: 700px;
+  width: 600px;
+  height: 450px;
 }
 .controls {
   margin-top: 10px;
@@ -195,6 +194,9 @@ img {
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 300px;
+}
+.jumbotron{
+  margin-bottom: 0;
 }
 
 #pac-input:focus {
@@ -232,7 +234,6 @@ img {
 
 }
 .events-ejs{
-  margin-top: 80px;
   padding: 60px 0px;
 	background-color: rgb(220, 220, 220);
 }
@@ -400,6 +401,11 @@ img {
 			left: 0px;
 			bottom: 0px;
 		}
+    .event-list > li > .info > ul > li:hover,
+    .event-list > li > .social > ul > li:hover {
+      color: #FAFAFE;
+      background-color: #2E2545;
+    }
 		.event-list > li > .social {
 			position: absolute;
 			top: 0px;
