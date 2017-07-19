@@ -2,47 +2,49 @@ const express = require('express');
 const Event = require('../models/Event');
 const Comment = require('../models/Comment');
 const ensureLogin = require("connect-ensure-login");
+const multer  = require('multer');
 const mongoose = require('mongoose');
-
+const upload = multer({ dest: './public/uploads/' });
+const pictures = [];
 const router = express.Router();
-
 router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Event.find({}, (err, events) => {
     if (err) {
       return next(err);
     }
-
     res.render('events/events', {
       user: req.user,
       events: events
     });
   });
 });
-
 router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
-
-router.post('/new', (req, res, next) => {
+router.post('/new', upload.single('imageUrl'), (req, res, next) => {
   const name = req.body.name;
   const place = req.body.place;
   const city = req.body.city;
   const date = req.body.date;
-  const imageUrl = req.body.imageUrl;
+  const imageUrl = "uploads/"+req.file.filename;
   const description = req.body.description;
   const category = req.body.category;
-
-
+  const imageName = req.file.originalname;
+  const lat = req.body.lat;
+  const long = req.body.long;
   const newEvent = Event({
      name : name,
      place : place,
      city : city,
      date : date,
-     imageUrl : "http://conceptodefinicion.de/wp-content/uploads/2015/01/Astronomia.jpg",
+     imageUrl: imageUrl,
+     imageName: imageName,
      description : description,
      category : category,
+     lat: lat,
+     long: long
   });
-
+console.log(lat);
   newEvent.save((err) => {
     if (err) {
       return next(err);
@@ -50,32 +52,25 @@ router.post('/new', (req, res, next) => {
     return res.redirect('/events');
   });
 });
-
 router.get('/events/:id', (req, res, next) => {
   const eventId = req.params.id;
-
   Event.findById(eventId, (err, event) => {
     if (err) { return next(err); }
     Comment.find({eventID: eventId}, (err, comments) => {
       if (err) { return next(err); }
       res.render('events/show', { event: event, comments: comments });
     });
-
   });
 });
-
 router.get('/events/:id/edit', (req, res, next) => {
   const eventId = req.params.id;
-
   Event.findById(eventId, (err, event) => {
     if (err) { return next(err); }
     res.render('events/edit', { event: event });
   });
 });
-
 router.post('/events/:id', (req, res, next) => {
   const eventId = req.params.id;
-
   const updates = {
      place : req.body.place,
      city : req.body.city,
@@ -83,20 +78,19 @@ router.post('/events/:id', (req, res, next) => {
      imageUrl : req.body.imageUrl,
      name : req.body.name,
      description : req.body.description,
-     category : req.body.category
+     category : req.body.category,
+     lat : req.body.lat,
+     long : req.body.long
 };
-
+console.log(place.geometry.location.lng());
 Event.findByIdAndUpdate(eventId, updates, (err, event) => {
   if (err){ return next(err); }
   return res.redirect('/events');
 });
 });
-
 //NUEVO
-
 router.post('/events/:id/delete', (req, res, next) => {
   const id = req.params.id;
-
   Event.findByIdAndRemove(id, (err, events) => {
     if (err){ return next(err); }
     Comment.remove({eventID:id}, (err, comment) => {
@@ -104,8 +98,5 @@ router.post('/events/:id/delete', (req, res, next) => {
       return res.redirect('/events');
     });
   });
-
-
 });
-
 module.exports = router;
