@@ -1,3 +1,10 @@
 <h1><%= event.name %></h1>
 <img src="<%= event.imageUrl %>">
 <p><%= event.description %></p>
+<p><%= comments %></p>
+
+<form action="/comments/<%= event._id %>" method="POST">
+  <label for="comment">Comment</label>
+  <textarea type="text" name="comment" class="form-control" id="comment"></textarea>
+  <button class="btn " type="submit">Create Comment</button>
+</form>

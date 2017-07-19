@@ -17,6 +17,7 @@ const MongoStore = require("connect-mongo")(session);
 const index = require('./routes/index');
 const authRoutes = require("./routes/auth-routes");
 const eventRoutes = require("./routes/events");
+const commentRoutes = require("./routes/comments");
 
 
 
@@ -62,6 +63,7 @@ app.use(passport.session());
 app.use('/', authRoutes);
 app.use('/', index);
 app.use('/', eventRoutes);
+app.use('/', commentRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

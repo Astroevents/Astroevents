@@ -3,41 +3,30 @@
 <div class="jumbotron container section">
   <input id="pac-input" class="controls" type="text" placeholder="Search Box"><br>
     <div id="map"> </div>
-
   <div class=" event jumbotron boxlogin container">
-
       <form action="/new" method="POST" enctype="multipart/form-data">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" class="form-control" placeholder=" Your name" >
-
         <label for="place">Place</label>
         <input type="text" name="place" id="place" class="form-control" placeholder=" Your Place" >
-
         <label for="city">City</label>
         <input type="text" name="city" id="city" class="form-control" placeholder=" Your City" >
-
         <label for="date">Date</label>
         <input type="date" name="date" id="date" class="form-control" >
-
         <label for="lat"></label>
         <input type="text" id="lat" name="lat" placeholder="Latitude" >
-
         <label for="long"></label>
         <input type="text" id="long" name="long" placeholder="Longitude">
-
-
       <label for="category">Category</label>
         <select class="form-control"  name="category">
-          <option value="default">Select Category</option>
+          <option value="unknown">Select Category</option>
          <option value="cielo profundo">Thep Sky</option>
           <option value="sitema solar">Solar Sistem</option>
           <option value="luna">Moon</option>
         </select>
         <br>
         <section>
-
         <label for="imageUrl">Image URL</label>
-
           <input type="file" name="imageUrl"  class="form-control" placeholder=" Image URL" >
         <label for="description">Description</label>
         <textarea type="text" name="description" class="form-control" id="description"></textarea>
@@ -52,4 +41,4 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ3L_bVBMdynZN4HfpoLWRn_f8u4cL0y0&libraries=places&callback=initAutocomplete"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ3L_bVBMdynZN4HfpoLWRn_f8u4cL0y0&libraries=places&callback=initAutocomplete"></script>

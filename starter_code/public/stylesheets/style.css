@@ -49,7 +49,7 @@ h1, h2 {
 }
 
 .section {
-  /*background-image: url('/images/slide4.jpg');*/
+  background-image: url('/images/slide4.jpg');
   background-size: cover;
   background-position: center center;
   min-height: 600px;

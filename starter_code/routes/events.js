@@ -1,9 +1,9 @@
 const express = require('express');
 const Event = require('../models/Event');
+const Comment = require('../models/Comment');
 const ensureLogin = require("connect-ensure-login");
 const multer  = require('multer');
 const mongoose = require('mongoose');
-//const passport = require("passport");
 const upload = multer({ dest: './public/uploads/' });
 const pictures = [];
 
@@ -27,14 +27,6 @@ router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
 
-// router.post('/uploads', upload.single('imageUrl'), function(req, res, next) {
-//   console.log(req.body);
-//   console.log(req.file);
-//   pictures.push({
-//     "imgURL": req.file.filename
-//   });
-//   res.redirect('/');
-// });
 
 router.post('/new', upload.single('imageUrl'), (req, res, next) => {
   const name = req.body.name;
@@ -74,7 +66,11 @@ router.get('/events/:id', (req, res, next) => {
 
   Event.findById(eventId, (err, event) => {
     if (err) { return next(err); }
-    res.render('events/show', { event: event });
+    Comment.find({eventID: eventId}, (err, comments) => {
+      if (err) { return next(err); }
+      res.render('events/show', { event: event, comments: comments });
+    });
+
   });
 });
 
@@ -101,7 +97,7 @@ router.post('/events/:id', (req, res, next) => {
      lat : req.body.lat,
      long : req.body.long
 };
-console.log(place.geometry.location.lng());
+
 Event.findByIdAndUpdate(eventId, updates, (err, event) => {
   if (err){ return next(err); }
   return res.redirect('/events');
@@ -113,10 +109,14 @@ Event.findByIdAndUpdate(eventId, updates, (err, event) => {
 router.post('/events/:id/delete', (req, res, next) => {
   const id = req.params.id;
 
-  Event.findByIdAndRemove(id, (err, event) => {
+  Event.findByIdAndRemove(id, (err, events) => {
     if (err){ return next(err); }
-    return res.redirect('/events');
+    Comment.remove({eventID:id}, (err, comment) => {
+      if (err){ return next(err); }
+      return res.redirect('/events');
+    });
   });
+
 
 });
 
