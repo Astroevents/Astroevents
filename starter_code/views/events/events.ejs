@@ -15,10 +15,7 @@
       <% events.forEach((event) => { %>
       <li>
         <time datetime="2014-07-20 2000">
-          <span class="day">20</span>
-          <span class="month">Jan</span>
-          <span class="year">2014</span>
-          <span class="time">8:00 PM</span>
+          <span class="day"><%=event.formatDate%></span>
         </time>
         <img alt="" src="<%= event.imageUrl %>" />
         <div class="info">

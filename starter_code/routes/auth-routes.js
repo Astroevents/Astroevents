@@ -22,7 +22,6 @@ authRoutes.post("/signup", upload.single('imgUrl'), (req, res, next) => {
   const email = req.body.email;
   const username = req.body.username;
   const password = req.body.password;
-  //const imgUrl = req.body.imgUrl;
   const imgUrl = "uploads/"+req.file.filename;
   console.log(req.file);
   const imgName = req.file.originalname;

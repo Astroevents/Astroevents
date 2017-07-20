@@ -6,10 +6,10 @@
         <img src="/<%= event.imageUrl%>" alt="">
       </div>
       <div class="assistans-wrapper">
-        <p>Al evento asistirán <strong style="font-size:25px" id="assistans-count">0</strong> personas!</p>
-        <button class="btn " type="submit" onclick="addAssitans()">Asistir</button>
-        <hr>
 
+        <button id="voting" <% if(assisted) { %> disabled <% } %> class="btn">Asistir</button>
+          <p>Al evento asistirán <strong style="font-size:25px" id="assistans-count"><%=assistants.length%></strong> personas!</p>
+        <hr>
         <% assistants.forEach((assistant) => { %>
         <img class="assistant-img" id="imagen" src="/<%=assistant.userID.imgUrl%>"></img>
       <% }) %>
