@@ -1,3 +1,4 @@
+ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -10,17 +11,18 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
+const debug = require('debug')(`easy-answer:${path.basename(__filename).split('.')[0]}`);
 
 
-
+const dbURL = process.env.MONGO_DB_URL;
 
 const index = require('./routes/index');
 const authRoutes = require("./routes/auth-routes");
 const eventRoutes = require("./routes/events");
 const commentRoutes = require('./routes/comments');
 
-mongoose.connect('mongodb://localhost/Astroevent');
-
+mongoose.connect(dbURL).then( () => debug('DB Connected!') );
+//mongoose.connect('mongodb://localhost/Astroevent');
 const app = express();
 
 // view engine setup
