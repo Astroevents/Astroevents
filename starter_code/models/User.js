@@ -10,7 +10,7 @@ const userSchema = new Schema({
   password: String,
   telescope: {type: Boolean, default: false
   },
-  imgUrl: {type: String, default: "https://placeholdit.imgix.net/~text?txtsize=33&txt=250%C3%97250&w=250&h=250"}
+  imgUrl: {type: String, default:"https://placeholdit.imgix.net/~text?txtsize=33&txt=250%C3%97250&w=250&h=250"}
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });

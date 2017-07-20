@@ -16,6 +16,9 @@ const EventSchema = new Schema({
     type: Date,
     default: new Date()
   },
+  formatDate:{
+    type: String,
+  },
   imageUrl: {
     type: String,
     default: "http://conceptodefinicion.de/wp-content/uploads/2015/01/Astronomia.jpg" },

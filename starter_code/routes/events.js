@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const upload = multer({ dest: './public/uploads/' });
 const pictures = [];
 const router = express.Router();
+var dateFormat = require('dateformat');
+
 router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Event.find({}, (err, events) => {
     if (err) {
@@ -22,24 +24,25 @@ router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
 router.get('/new', (req, res, next) => {
   res.render('events/new');
 });
-
 router.post('/new', upload.single('imageUrl'), (req, res, next) => {
   const name = req.body.name;
   const place = req.body.place;
   const city = req.body.city;
   const date = req.body.date;
+  const formatDate = dateFormat(date, "dd/mm ");
+    console.log(formatDate);
   const imageUrl = "uploads/"+req.file.filename;
   const description = req.body.description;
   const category = req.body.category;
   const imageName = req.file.originalname;
   const lat = req.body.lat;
   const long = req.body.long;
-
   const newEvent = Event({
      name : name,
      place : place,
      city : city,
      date : date,
+     formatDate : formatDate,
      imageUrl: imageUrl,
      imageName: imageName,
      description : description,
@@ -57,7 +60,6 @@ console.log(newEvent);
   });
 });
 router.get('/events/:id', (req, res, next) => {
-
   const eventId = req.params.id;
   Event.findById(eventId, (err, event) => {
     if (err) { return next(err); }
@@ -78,21 +80,29 @@ router.get('/events/:id', (req, res, next) => {
         if (err) { return err; }
         let promisesAssistants = [];
         assistants.forEach((e) => {
-          promisesAssistants.push(new Promise((resolve, reject)=> {
+          promisesAssistants.push(new Promise((resolved, reject)=> {
             e.populate('userID', (err, user) => {
             if (err) { return err;}
-              resolve(user);
+              resolved(user);
           });
           })
         );
       });
-      Promise.all(promisesComments).then((assistantsPopulated) =>
-        res.render('events/show', { event: event, comments: commentsPopulated, assistants: assistantsPopulated })
+      Promise.all(promisesAssistants).then((assistantsPopulated) => {
+        var assisted = false;
+        var assistantsID = assistantsPopulated.map((e)=> {
+          return e.userID._id.toString();
+        });
+        console.log(assistantsID.indexOf(req.user._id.toString()));
+        if(assistantsID.indexOf(req.user._id.toString()) !== -1) {
+          assisted = true;
+        }
+        res.render('events/show', { event: event, comments: commentsPopulated, assistants: assistantsPopulated, assisted: assisted });
+      }
         );
       })
       );
     });
-
   });
 });
 router.get('/events/:id/edit', (req, res, next) => {
@@ -124,7 +134,6 @@ Event.findByIdAndUpdate(eventId, updates, (err, event) => {
 //NUEVO
 router.post('/events/:id/delete', (req, res, next) => {
   const id = req.params.id;
-
   Event.findByIdAndRemove(id, (err, events) => {
     if (err){ return next(err); }
     Comment.remove({eventID:id}, (err, comment) => {
@@ -133,29 +142,30 @@ router.post('/events/:id/delete', (req, res, next) => {
     });
   });
 });
-
 router.post('/events/:id/assist', (req, res, next) => {
   const eventId = req.body.event;
   const userId = req.body.user;
-
   const newAssistant = new Assistant({
     eventID: eventId,
     userID: userId
   });
-
   newAssistant.save((err,assistant) => {
       if(err) {return err;}
       Assistant.find({eventID: eventId}, (err,assistants) => {
         if (err) { return err; }
-        res.status(200).json(assistants);
+        let assistantsPopulated = [];
+        assistants.forEach((e) => {
+          assistantsPopulated.push(new Promise((resolve, reject)=> {
+            e.populate('userID', (err, user) => {
+            if (err) { return err;}
+              resolve(user);
+          });
+          })
+        );
       });
-
+        Promise.all(assistantsPopulated).then((assistantsPopulated) =>
+        res.status(200).json(assistantsPopulated));
+      });
   });
-
-
-
 });
-
-
-
 module.exports = router;

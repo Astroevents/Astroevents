@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-8">
@@ -6,24 +5,24 @@
         <img src="/<%= event.imageUrl%>" alt="">
       </div>
       <div class="assistans-wrapper">
-        <p>Al evento asistirán <strong style="font-size:25px"><%=assistants.length%></strong> personas!</p>
+          <button id="voting" <% if(assisted) { %> disabled <% } %> class="btn">Asistir</button>
+        <p>Al evento asistirán <strong style="font-size:25px" id="assistans-count"><%=assistants.length%></strong> personas!</p>
         <hr>
           <% assistants.forEach((assistant) => { %>
-            <img class="assistant-img" src="<%=assistant.userOwner.imgUrl%>"></img>
+            <img class="assistant-img" id="imagen" src="<%=assistant.userID.imgUrl%>"></img>
           <% }) %>
+
       </div>
     </div>
     <div class="col-xs-4 comments-wrapper">
+
       <form action="/comments/<%= event._id %>" method="POST">
         <textarea type="text" name="comment" class="form-control form-control input-sm chat-input" id="comment" placeholder="Write your message here..."></textarea>
         </br>
         <button class="btn " type="submit">Create Comment</button>
-        <button class="btn " type="submit" onclick="addAssitans()">Asistir</button>
         </br>
         </form>
         <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
-        <small class="pull-right text-muted">
-           <span class="glyphicon glyphicon-time"></span>7 mins ago</small>
         </br>
         <hr>
         <% comments.forEach((event) => { %>
@@ -33,7 +32,7 @@
             </div>
             <div class="col-xs-9">
               <span class="user-name-comment"><%=event.userOwner.username%></span>
-              <span class="created-at-comment"><%=event.created_at%></span>
+              <span class="created-at-comment glyphicon glyphicon-time"><%=event.created_at%></span>
             </div>
             <div class="col-xs-3">
             </div>
@@ -43,14 +42,10 @@
           </div>
           <hr>
           <%  }); %>
-
     </ul>
     </div>
   </div>
 </div>
-
-
-
 <script type="text/javascript">
   var currentUser = <%-JSON.stringify({
     user : user,
