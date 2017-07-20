@@ -1,13 +1,44 @@
-<div class="container">
+
   <div class="container events-ejs">
-    <% if (user) { %>
-      <div class="c-header">
-        <h2>Welcome  <%= user.username %> </h2>
+    <div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                  <div class="col-sm-6 col-md-4">
+                    <% if (user) { %>
+                    <img src="/<%= user.imgUrl%>" alt="" class="img-circle img-responsive" />
+                  </div>
+                  <div class="col-sm-6 col-md-8">
+                    <h4><i class="glyphicon glyphicon-user"></i> <strong><%= user.name %> <%= user.lastName %></strong></h4>
+                    <small>
+                      <cite title="City, ST">
+                        <i class="glyphicon glyphicon-map-marker"></i> <%= user.city %>
+                      </cite>
+                    </small>
+                    <p>
+                    <i class="glyphicon glyphicon-envelope"></i> <a href="#"><%= user.email %></a><br />
+                            <br />
+                            <i class="glyphicon glyphicon-gift"></i> July 07, 1987</p>
+                          <% } %>
+                        <!-- Split button -->
+                        <div class="btn-group">
+                          <a href="/" class="btn">Logout</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+  </div>
+
+
+</div>
+
         <div class="header-btn">
           <a href="/new" class="btn">New Event</a>
         </div>
-      </div>
-    <% } %>
 <div class="row">
   <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
     <ul class="event-list">
@@ -48,6 +79,4 @@
     </ul>
   </div>
 </div>
-</div>
-
 </div>

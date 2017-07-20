@@ -12,6 +12,10 @@ h3 {
   color: #FAFAFE;
   text-align: center;
 }
+.img-circle {
+    border-radius: 50%;
+    margin: 0;
+}
 .carousel-inner>.item {
   min-height: 600px;
   background-size: cover;
@@ -437,7 +441,7 @@ svg.shopping {
 
 }
 .events-ejs{
-  padding: 60px 0px;
+  padding: 20px;
 	background-color: rgb(220, 220, 220);
 }
 .event-list {
