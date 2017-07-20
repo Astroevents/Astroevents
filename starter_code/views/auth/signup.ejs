@@ -2,7 +2,7 @@
 <h1><%= title %></h1>
 <h1>Signup</h1>
 <div class="jumbotron boxlogin container">
-<form action="/signup" method="POST" id="form-container">
+<form action="/signup" method="POST" id="form-container" enctype="multipart/form-data">
   <label for="name">Name</label>
   <input id="name" type="text" name="name" class="form-control" placeholder=" Name">
   <label for="lastName">Lastname</label>
@@ -16,10 +16,7 @@
   <label for="email">Email</label>
   <input id="email" type="text" name="email"class="form-control"  placeholder=" Email">
   <label for="imgUrl">Image URL</label>
-  <div class="form-group">
-
-    <input type="file" name="imgUrl"  class="form-control" placeholder=" Image URL" >
-  </div>
+  <input type="file" name="imgUrl"  class="form-control" placeholder=" Image URL" >
   <label for="telescope">Has Telescope </label>
   <input name="telescope" type="checkbox" id="create-telescope">
 

@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const upload = multer({ dest: './public/uploads/' });
 const pictures = [];
 const router = express.Router();
+
 router.get('/events', ensureLogin.ensureLoggedIn(), (req, res, next) => {
   Event.find({}, (err, events) => {
     if (err) {
@@ -78,16 +79,19 @@ router.get('/events/:id', (req, res, next) => {
         if (err) { return err; }
         let promisesAssistants = [];
         assistants.forEach((e) => {
-          promisesAssistants.push(new Promise((resolve, reject)=> {
+          promisesAssistants.push(new Promise((resolved, reject)=> {
             e.populate('userID', (err, user) => {
             if (err) { return err;}
-              resolve(user);
+              resolved(user);
           });
           })
         );
       });
-      Promise.all(promisesComments).then((assistantsPopulated) =>
-        res.render('events/show', { event: event, comments: commentsPopulated, assistants: assistantsPopulated })
+      Promise.all(promisesAssistants).then((assistantsPopulated) => {
+        console.log(assistantsPopulated);
+        res.render('events/show', { event: event, comments: commentsPopulated, assistants: assistantsPopulated });
+
+      }
         );
       })
       );

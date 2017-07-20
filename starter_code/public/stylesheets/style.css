@@ -355,7 +355,7 @@ svg.shopping {
 }
 
 .image-wrapper {
-  height: 20vh;
+  height: 80vh;
   overflow: hidden;
 }
 
@@ -401,6 +401,9 @@ svg.shopping {
 .comment-text {
 
 }
+.btn-file{
+  color: transparent;
+}
 
 .comment-wrapper {
   margin: 10px 0px 0px 0px;
@@ -408,6 +411,7 @@ svg.shopping {
 
 .assistans-wrapper {
   padding: 20px 50px 0px 50px;
+  margin-bottom: 80px;
 }
 
 .assistans-wrapper p {

@@ -1,28 +1,32 @@
 const express = require("express");
-const authRoutes = express.Router();
 const passport = require("passport");
 const ensureLogin = require("connect-ensure-login");
-
-
+const multer  = require('multer');
+const upload = multer({ dest: './public/uploads/' });
 const User = require("../models/User");
 
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
+const authRoutes = express.Router();
+
+
 authRoutes.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
 
-authRoutes.post("/signup", (req, res, next) => {
+authRoutes.post("/signup", upload.single('imgUrl'), (req, res, next) => {
   const name = req.body.name;
   const lastName = req.body.lastName;
   const city = req.body.city;
   const email = req.body.email;
   const username = req.body.username;
   const password = req.body.password;
-  const imgUrl = req.body.imgUrl;
+  //const imgUrl = req.body.imgUrl;
+  const imgUrl = "uploads/"+req.file.filename;
+  console.log(req.file);
+  const imgName = req.file.originalname;
   const telescope = req.body.telescope;
-
   if (username === "" || password === "") {
     res.render("auth/signup", {
       message: "Indicate username and password"
@@ -50,11 +54,11 @@ authRoutes.post("/signup", (req, res, next) => {
       email: email,
       username: username,
       password: hashPass,
-      imgUrl: "https://placeholdit.imgix.net/~text?txtsize=33&txt=250%C3%97250&w=250&h=250" ,
+      imgUrl: imgUrl,
+      imgName : imgName,
       telescope
-
-
     });
+console.log(newUser);
 
     newUser.save((err) => {
       if (err) {

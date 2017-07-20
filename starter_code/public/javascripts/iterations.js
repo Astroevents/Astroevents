@@ -4,6 +4,7 @@ let assistInfo = {
   user:currentUser.user._id,
   event: currentUser.event._id
 };
+console.log(currentUser.user._id);
 
 // Make a POST request
  $.ajax({
@@ -18,6 +19,8 @@ let assistInfo = {
 function showFeedback (postResponse) {
  console.log('post success');
  console.log(postResponse);
+ $("#assistans-count").html(postResponse.length);
+ $(".assistant-img").append(src="<%=assistant.userID.imgUrl%>");
 }
 
 function handleError (err) {
