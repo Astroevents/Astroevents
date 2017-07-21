@@ -6,7 +6,7 @@
         <img src="/<%= event.imageUrl%>" alt="">
       </div>
       <div class="assistans-wrapper">
-
+        <p><%= event.description%></p>
         <button id="voting" <% if(assisted) { %> disabled <% } %> class="btn">Asistir</button>
           <p>Al evento asistirán <strong style="font-size:25px" id="assistans-count"><%=assistants.length%></strong> personas!</p>
         <hr>

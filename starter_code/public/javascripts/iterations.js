@@ -9,7 +9,7 @@ $(function(){
       .then( response => {
         console.log(response);
         $("#assistans-count").html(response.length);
-        newAssistant = '<img class="assistant-img" id="imagen" src="'+response[response.length-1].userID.imgUrl+'"></img>';
+        newAssistant = '<img class="assistant-img" id="imagen" src="/'+response[response.length-1].userID.imgUrl+'"></img>';
         $(".assistans-wrapper").append(newAssistant);
         $("#voting").attr("disabled",true);
       });
