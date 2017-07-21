@@ -152,6 +152,11 @@ img {
 #map {
   width: 600px;
   height: 450px;
+
+}
+#map img{
+  -webkit-filter: none;
+
 }
 .controls {
   margin-top: 10px;
